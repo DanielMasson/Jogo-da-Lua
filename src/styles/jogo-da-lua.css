@@ -1,0 +1,582 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+/* Garante que a árvore inteira (html > body > #root) tenha altura real,
+   senão min-height:100% no .jdl-root não teria em relação a quê crescer. */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.jdl-root {
+  --jdl-void: #0b1420;
+  --jdl-panel: #131f35;
+  --jdl-panel-2: #1a2942;
+  --jdl-line: #2a3f5f;
+  --jdl-ink: #eaf1fb;
+  --jdl-mist: #8ca0c4;
+  --jdl-gold: #f0d889;
+  --jdl-gold-dim: #c9ad5e;
+  --jdl-mint: #6fcf97;
+  --jdl-coral: #e8636f;
+  --jdl-violet: #9b7ede;
+  --jdl-display: "Fraunces", Georgia, serif;
+  --jdl-body: "Inter", system-ui, -apple-system, sans-serif;
+  --jdl-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  background: radial-gradient(120% 140% at 50% -10%, #16233c 0%, var(--jdl-void) 55%);
+  color: var(--jdl-ink);
+  font-family: var(--jdl-body);
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh; /* usa a altura visível real em navegadores mobile */
+  padding: 20px 16px 32px;
+  box-sizing: border-box;
+}
+.jdl-root *,
+.jdl-root *::before,
+.jdl-root *::after {
+  box-sizing: border-box;
+}
+
+.jdl-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.jdl-eyebrow {
+  font-family: var(--jdl-mono);
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  color: var(--jdl-gold-dim);
+  text-transform: uppercase;
+}
+.jdl-title {
+  font-family: var(--jdl-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 600;
+  margin: 6px 0 4px;
+  letter-spacing: 0.01em;
+}
+.jdl-subtitle {
+  color: var(--jdl-mist);
+  font-size: 14px;
+  margin: 0;
+}
+.jdl-phase-strip {
+  font-size: 15px;
+  letter-spacing: 6px;
+  margin-top: 10px;
+  opacity: 0.75;
+}
+
+.jdl-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+@media (min-width: 980px) {
+  .jdl-layout {
+    grid-template-columns: 300px 1fr 340px;
+    align-items: start;
+  }
+}
+
+.jdl-panel {
+  background: linear-gradient(180deg, var(--jdl-panel) 0%, var(--jdl-panel-2) 100%);
+  border: 1px solid var(--jdl-line);
+  border-radius: 16px;
+  padding: 20px;
+}
+.jdl-panel h2 {
+  font-family: var(--jdl-display);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--jdl-gold);
+  margin: 0 0 14px;
+  font-weight: 600;
+}
+
+/* --- bônus --- */
+.jdl-bonus-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.jdl-btn {
+  font-family: var(--jdl-body);
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: 9px;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+}
+.jdl-btn:hover:not(:disabled) {
+  border-color: var(--jdl-gold-dim);
+}
+.jdl-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.jdl-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.jdl-btn:focus-visible {
+  outline: 2px solid var(--jdl-gold);
+  outline-offset: 2px;
+}
+.jdl-btn.is-active {
+  background: var(--jdl-gold);
+  color: var(--jdl-void);
+  border-color: var(--jdl-gold);
+}
+.jdl-btn-pergunta {
+  flex: 1;
+  text-align: left;
+}
+.jdl-btn-resposta {
+  background: var(--jdl-mint);
+  color: var(--jdl-void);
+  border-color: var(--jdl-mint);
+}
+.jdl-btn-resposta:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.jdl-bonus-display {
+  margin-top: 6px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px dashed var(--jdl-line);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--jdl-mist);
+  min-height: 76px;
+}
+
+.jdl-instructions-toggle {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.jdl-instructions-text {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--jdl-mist);
+}
+
+/* --- roleta --- */
+.jdl-wheel-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.jdl-wheel-wrap {
+  width: 100%;
+  max-width: 300px;
+}
+.jdl-wedge {
+  fill: transparent;
+  stroke: var(--jdl-line);
+  stroke-width: 1.5;
+  transition: fill 140ms ease;
+}
+.jdl-wedge.is-lit {
+  fill: var(--jdl-gold);
+  opacity: 0.55;
+}
+.jdl-wedge.is-selected {
+  fill: var(--jdl-gold);
+  opacity: 0.3;
+}
+.jdl-wedge-label {
+  font-family: var(--jdl-mono);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--jdl-ink);
+  paint-order: stroke;
+  stroke: var(--jdl-void);
+  stroke-width: 3px;
+}
+
+.jdl-spin-btn {
+  margin-top: 16px;
+  font-family: var(--jdl-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 12px 40px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(180deg, var(--jdl-gold) 0%, var(--jdl-gold-dim) 100%);
+  color: #2a2005;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(240, 216, 137, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jdl-spin-btn:hover:not(:disabled) {
+  box-shadow: 0 8px 22px rgba(240, 216, 137, 0.28);
+}
+.jdl-spin-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.jdl-spin-btn:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+.jdl-spin-btn:focus-visible {
+  outline: 2px solid var(--jdl-ink);
+  outline-offset: 3px;
+}
+
+.jdl-feedback {
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: var(--jdl-mist);
+  min-height: 18px;
+}
+.jdl-feedback strong {
+  color: var(--jdl-gold);
+  font-family: var(--jdl-mono);
+}
+
+/* --- quiz --- */
+.jdl-qgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.jdl-qbtn {
+  font-family: var(--jdl-mono);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 0;
+  border-radius: 8px;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.jdl-qbtn:hover:not(:disabled) {
+  border-color: var(--jdl-gold-dim);
+}
+.jdl-qbtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.jdl-qbtn.is-active {
+  background: var(--jdl-gold);
+  color: var(--jdl-void);
+  border-color: var(--jdl-gold);
+}
+.jdl-qbtn.is-answered {
+  background: var(--jdl-violet);
+  color: #fff;
+  border-color: var(--jdl-violet);
+}
+
+.jdl-qcard,
+.jdl-acard {
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  min-height: 92px;
+}
+.jdl-qcard {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--jdl-line);
+  margin-bottom: 12px;
+}
+.jdl-acard {
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px dashed var(--jdl-line);
+  color: var(--jdl-mist);
+}
+.jdl-placeholder {
+  color: var(--jdl-mist);
+  font-style: italic;
+}
+.jdl-true {
+  color: var(--jdl-mint);
+}
+.jdl-false {
+  color: var(--jdl-coral);
+}
+.jdl-false-correction {
+  color: var(--jdl-ink);
+}
+.jdl-answered-msg {
+  color: var(--jdl-violet);
+  font-weight: 600;
+}
+.jdl-tag {
+  font-family: var(--jdl-mono);
+}
+
+/* --- placar --- */
+.jdl-scoreboard {
+  max-width: 1180px;
+  margin: 22px auto 0;
+}
+
+.jdl-scoreboard-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.jdl-scoreboard-title {
+  font-family: var(--jdl-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--jdl-gold);
+  font-weight: 600;
+}
+.jdl-bulk-actions {
+  display: flex;
+  gap: 8px;
+}
+.jdl-bulk-btn-v:hover:not(:disabled) {
+  border-color: var(--jdl-mint);
+  color: var(--jdl-mint);
+}
+.jdl-bulk-btn-f:hover:not(:disabled) {
+  border-color: var(--jdl-coral);
+  color: var(--jdl-coral);
+}
+
+.jdl-scoreboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .jdl-scoreboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 980px) {
+  .jdl-scoreboard-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.jdl-group-pod {
+  background: var(--jdl-panel);
+  border: 1px solid var(--jdl-line);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.jdl-group-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--jdl-mist);
+}
+.jdl-vf {
+  display: flex;
+  gap: 6px;
+}
+.jdl-vf-btn {
+  width: 34px;
+  height: 30px;
+  font-family: var(--jdl-mono);
+  font-weight: 700;
+  border-radius: 7px;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  cursor: pointer;
+}
+.jdl-vf-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.jdl-vf-btn.picked-v {
+  background: var(--jdl-mint);
+  color: var(--jdl-void);
+  border-color: var(--jdl-mint);
+}
+.jdl-vf-btn.picked-f {
+  background: var(--jdl-coral);
+  color: var(--jdl-void);
+  border-color: var(--jdl-coral);
+}
+.jdl-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.jdl-score-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  cursor: pointer;
+}
+.jdl-score-num {
+  font-family: var(--jdl-mono);
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* --- diagramas / modal --- */
+.jdl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 9, 16, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+.jdl-modal-card {
+  background: var(--jdl-panel);
+  border: 1px solid var(--jdl-line);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  position: relative;
+}
+.jdl-modal-card h3 {
+  font-family: var(--jdl-display);
+  font-size: 16px;
+  color: var(--jdl-gold);
+  margin: 0 0 12px;
+}
+.jdl-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--jdl-mist);
+  cursor: pointer;
+  padding: 4px;
+}
+.jdl-modal-close:hover {
+  color: var(--jdl-ink);
+}
+.jdl-diagram {
+  width: 100%;
+  height: auto;
+}
+.jdl-svg-label {
+  font-family: var(--jdl-body);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--jdl-ink);
+}
+.jdl-svg-sublabel {
+  font-family: var(--jdl-body);
+  font-size: 10.5px;
+  fill: var(--jdl-mist);
+}
+.jdl-svg-sublabel-red {
+  font-family: var(--jdl-body);
+  font-size: 10.5px;
+  fill: var(--jdl-coral);
+}
+.jdl-svg-highlight {
+  font-family: var(--jdl-mono);
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--jdl-gold);
+}
+.jdl-diagram-caption {
+  font-family: var(--jdl-body);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--jdl-mist);
+  margin: 12px 0 0;
+  text-align: center;
+}
+.jdl-svg-earth-label {
+  font-family: var(--jdl-body);
+  font-size: 9px;
+  fill: var(--jdl-void);
+  font-weight: 700;
+}
+
+/* --- versão mobile (sem roleta/placar): caixa única de pergunta aleatória --- */
+.jdl-moon-hero {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 0;
+}
+.jdl-moon-hero-glow {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  box-shadow: 0 0 40px 6px rgba(240, 216, 137, 0.22);
+}
+
+.jdl-mobile-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.jdl-mobile-quiz .jdl-qcard {
+  margin-bottom: 12px;
+}
+.jdl-mobile-btn {
+  width: 100%;
+  display: block;
+}
+.jdl-mobile-quiz .jdl-btn-resposta.jdl-mobile-btn {
+  margin-bottom: 12px;
+}
+.jdl-mobile-quiz .jdl-acard {
+  margin-bottom: 16px;
+}
+.jdl-mobile-progress {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--jdl-mist);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jdl-wedge,
+  .jdl-btn,
+  .jdl-spin-btn {
+    transition: none !important;
+  }
+}
