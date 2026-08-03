@@ -1,53 +1,87 @@
-import { Shuffle } from "lucide-react";
-import { useSorteioAleatorio } from "../hooks/useSorteioAleatorio";
+import { SETORES } from "../data/setores";
+import { useJogoMobile } from "../hooks/useJogoMobile";
+import RoletaSvg from "./RoletaSvg";
 
 export default function MobileQuiz() {
-  const { atual, revelada, sortear, revelar, total, vistas } = useSorteioAleatorio();
-
-  let correcaoTexto = "";
-  let correcaoClasse = "";
-  if (atual && revelada) {
-    correcaoTexto = atual.verdadeiro ? "VERDADEIRO" : atual.correcao;
-    correcaoClasse = atual.verdadeiro ? "jdl-true" : "jdl-false-correction";
-  }
+  const { girando, destaque, setorAtual, pergunta, minhaResposta, revelada, acertou, girar, escolherResposta, revelar } =
+    useJogoMobile();
 
   return (
     <section className="jdl-panel jdl-mobile-quiz">
-      <h2>Pergunta Aleatória</h2>
+      <h2>Roleta da Lua</h2>
 
-      <div className="jdl-qcard">
-        {!atual ? (
-          <p className="jdl-placeholder">Toque no botão abaixo para sortear a primeira pergunta.</p>
-        ) : revelada ? (
-          <p className={atual.verdadeiro ? "jdl-true" : "jdl-false"}>
-            {atual.texto} <span className="jdl-tag">[{atual.verdadeiro ? "V" : "F"}]</span>
-          </p>
-        ) : (
-          <p>{atual.texto}</p>
-        )}
+      <div className="jdl-wheel-wrap jdl-wheel-wrap-mobile">
+        <RoletaSvg destaque={destaque} setorAtual={setorAtual} girando={girando} />
       </div>
 
-      {atual && !revelada && (
-        <button className="jdl-btn jdl-btn-resposta jdl-mobile-btn" onClick={revelar}>
-          Resposta
+      <p className="jdl-feedback">
+        {girando ? (
+          "Sorteando um setor…"
+        ) : setorAtual == null ? (
+          "Toque em Girar para sortear uma pergunta!"
+        ) : (
+          <>
+            Setor sorteado: <strong>{SETORES[setorAtual].letra}</strong> — {SETORES[setorAtual].titulo}
+          </>
+        )}
+      </p>
+
+      {!girando && (
+        <button className="jdl-spin-btn jdl-mobile-btn" onClick={girar}>
+          {pergunta ? "Girar novamente" : "Girar"}
         </button>
       )}
 
-      {atual && (
-        <div className={`jdl-acard ${correcaoClasse}`}>
-          {correcaoTexto || <span className="jdl-placeholder">Toque em Resposta para revelar a explicação.</span>}
-        </div>
-      )}
+      {pergunta && (
+        <>
+          <div className="jdl-qcard">
+            {revelada ? (
+              <p className={pergunta.verdadeiro ? "jdl-true" : "jdl-false"}>
+                {pergunta.texto} <span className="jdl-tag">[{pergunta.verdadeiro ? "V" : "F"}]</span>
+              </p>
+            ) : (
+              <p>{pergunta.texto}</p>
+            )}
+          </div>
 
-      <button className="jdl-spin-btn jdl-mobile-btn" onClick={sortear}>
-        <Shuffle size={17} style={{ marginRight: 8, verticalAlign: "-3px" }} />
-        {atual ? "Próxima pergunta" : "Sortear pergunta"}
-      </button>
+          {!revelada && (
+            <>
+              <div className="jdl-mobile-vf">
+                <button
+                  className={`jdl-vf-btn-lg ${minhaResposta === "V" ? "picked-v" : ""}`}
+                  onClick={() => escolherResposta("V")}
+                >
+                  Verdadeiro
+                </button>
+                <button
+                  className={`jdl-vf-btn-lg ${minhaResposta === "F" ? "picked-f" : ""}`}
+                  onClick={() => escolherResposta("F")}
+                >
+                  Falso
+                </button>
+              </div>
 
-      {vistas > 0 && (
-        <p className="jdl-mobile-progress">
-          {vistas} de {total} perguntas vistas nesta rodada
-        </p>
+              <button
+                className="jdl-btn jdl-btn-resposta jdl-mobile-btn"
+                disabled={minhaResposta == null}
+                onClick={revelar}
+              >
+                Resposta
+              </button>
+            </>
+          )}
+
+          {revelada && (
+            <>
+              <p className={`jdl-resultado ${acertou ? "jdl-true" : "jdl-false"}`}>
+                {acertou ? "Você acertou! 🎉" : "Você errou."}
+              </p>
+              <div className={`jdl-acard ${pergunta.verdadeiro ? "jdl-true" : "jdl-false-correction"}`}>
+                {pergunta.verdadeiro ? "VERDADEIRO" : pergunta.correcao}
+              </div>
+            </>
+          )}
+        </>
       )}
     </section>
   );

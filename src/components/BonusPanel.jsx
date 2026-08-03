@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HelpCircle } from "lucide-react";
 import { BONUS } from "../data/bonus";
 import BonusModal from "./BonusModal";
+import { useSfx } from "../hooks/useSfx";
 
 /**
  * Este painel não depende do estado do jogo principal — ele só lê a
@@ -9,6 +10,7 @@ import BonusModal from "./BonusModal";
  * exibida, qual modal de resposta está aberto, instruções visíveis).
  */
 export default function BonusPanel() {
+  const sfx = useSfx();
   const [bonusIdx, setBonusIdx] = useState(null);
   const [bonusModal, setBonusModal] = useState(null);
   const [instrucoesAbertas, setInstrucoesAbertas] = useState(false);
@@ -23,11 +25,20 @@ export default function BonusPanel() {
         <div className="jdl-bonus-row" key={b.id}>
           <button
             className={`jdl-btn jdl-btn-pergunta ${bonusIdx === b.id ? "is-active" : ""}`}
-            onClick={() => setBonusIdx(b.id)}
+            onClick={() => {
+              sfx("select");
+              setBonusIdx(b.id);
+            }}
           >
             Pergunta {b.id}
           </button>
-          <button className="jdl-btn jdl-btn-resposta" onClick={() => setBonusModal(b.id)}>
+          <button
+            className="jdl-btn jdl-btn-resposta"
+            onClick={() => {
+              sfx("reveal");
+              setBonusModal(b.id);
+            }}
+          >
             Resposta
           </button>
         </div>
@@ -37,7 +48,13 @@ export default function BonusPanel() {
         {perguntaSelecionada ? perguntaSelecionada.pergunta : "Clique em uma das perguntas acima para exibi-la aqui."}
       </div>
 
-      <button className="jdl-btn jdl-instructions-toggle" onClick={() => setInstrucoesAbertas((v) => !v)}>
+      <button
+        className="jdl-btn jdl-instructions-toggle"
+        onClick={() => {
+          sfx("toggle");
+          setInstrucoesAbertas((v) => !v);
+        }}
+      >
         <HelpCircle size={15} />
         {instrucoesAbertas ? "Ocultar instruções" : "Como jogar"}
       </button>
@@ -51,7 +68,15 @@ export default function BonusPanel() {
         </p>
       )}
 
-      {bonusModal && <BonusModal id={bonusModal} onClose={() => setBonusModal(null)} />}
+      {bonusModal && (
+        <BonusModal
+          id={bonusModal}
+          onClose={() => {
+            sfx("click");
+            setBonusModal(null);
+          }}
+        />
+      )}
     </section>
   );
 }

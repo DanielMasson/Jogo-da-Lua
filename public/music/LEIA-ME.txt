@@ -1,0 +1,8 @@
+Coloque aqui a música de fundo com o nome EXATO:
+
+  trilha.mp3
+
+Ela toca em loop, começando no primeiro clique/toque do usuário na página
+(os navegadores bloqueiam música automática com som antes disso). Se o
+arquivo não existir, o site fica sem música de fundo, mas continua
+funcionando normalmente.

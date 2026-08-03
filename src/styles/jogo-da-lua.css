@@ -33,6 +33,7 @@ body,
   min-height: 100dvh; /* usa a altura visível real em navegadores mobile */
   padding: 20px 16px 32px;
   box-sizing: border-box;
+  position: relative;
 }
 .jdl-root *,
 .jdl-root *::before,
@@ -571,6 +572,64 @@ body,
   text-align: center;
   font-size: 12.5px;
   color: var(--jdl-mist);
+}
+
+/* --- controle de som (música de fundo) --- */
+.jdl-audio-controls {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(19, 31, 53, 0.88);
+  border: 1px solid var(--jdl-line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  backdrop-filter: blur(6px);
+  z-index: 40;
+}
+.jdl-audio-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.jdl-audio-btn:hover {
+  border-color: var(--jdl-gold-dim);
+}
+.jdl-audio-btn[aria-pressed="true"] {
+  color: var(--jdl-coral);
+  border-color: var(--jdl-coral);
+}
+.jdl-audio-slider {
+  width: 90px;
+  accent-color: var(--jdl-gold);
+  cursor: pointer;
+}
+.jdl-audio-slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .jdl-audio-controls {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    padding: 7px 10px;
+  }
+  .jdl-audio-slider {
+    width: 64px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

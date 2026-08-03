@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { SETORES } from "../data/setores";
 import { FRASES_POR_SETOR } from "../data/perguntas";
+import { useSfx } from "./useSfx";
 
 const NUM_SETORES = SETORES.length;
 const NUM_GRUPOS = 6;
@@ -10,6 +11,8 @@ const NUM_GRUPOS = 6;
  * Os componentes só leem o que esse hook devolve e chamam as ações.
  */
 export function useJogoDaLua() {
+  const sfx = useSfx();
+
   const [grupos, setGrupos] = useState(
     Array.from({ length: NUM_GRUPOS }, (_, i) => ({ nome: `Grupo ${i + 1}`, pontos: 0, resposta: null }))
   );
@@ -44,10 +47,12 @@ export function useJogoDaLua() {
 
     function tick() {
       setDestaque(passo % NUM_SETORES);
+      sfx("spin");
       if (passo >= passosTotais) {
         setDestaque(final);
         setSetorAtual(final);
         setGirando(false);
+        sfx("spin-stop");
         return;
       }
       passo++;
@@ -60,10 +65,12 @@ export function useJogoDaLua() {
   function selecionarPergunta(i) {
     if (setorAtual == null || girando) return;
     if (estados[setorAtual][i] === 2) {
+      sfx("click");
       setPerguntaAtiva(i);
       setRevelada("bloqueada");
       return;
     }
+    sfx("select");
     setPerguntaAtiva(i);
     setRevelada(false);
     setEstados((e) => {
@@ -76,6 +83,8 @@ export function useJogoDaLua() {
   function revelarResposta() {
     if (setorAtual == null || perguntaAtiva == null || revelada === true || revelada === "bloqueada") return;
     const [, verdadeiro] = FRASES_POR_SETOR[setorAtual][perguntaAtiva];
+
+    sfx(verdadeiro ? "correct" : "wrong");
 
     setGrupos((gs) =>
       gs.map((g) => {
@@ -96,16 +105,19 @@ export function useJogoDaLua() {
 
   function escolherResposta(idx, resposta) {
     if (travado) return;
+    sfx("toggle");
     setGrupos((gs) => gs.map((g, i) => (i === idx ? { ...g, resposta } : g)));
   }
 
   /** Marca a mesma resposta (V ou F) para todos os grupos de uma vez. */
   function marcarTodosComo(resposta) {
     if (travado) return;
+    sfx("toggle");
     setGrupos((gs) => gs.map((g) => ({ ...g, resposta })));
   }
 
   function ajustarPontos(idx, delta) {
+    sfx("score");
     setGrupos((gs) => gs.map((g, i) => (i === idx ? { ...g, pontos: Math.max(0, g.pontos + delta) } : g)));
   }
 

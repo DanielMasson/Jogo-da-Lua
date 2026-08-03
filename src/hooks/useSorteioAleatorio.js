@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { FRASES_POR_SETOR } from "../data/perguntas";
+import { useSfx } from "./useSfx";
 
 /** Achata as 70 perguntas (7 setores x 10) numa lista única e embaralhável. */
 const TODAS_PERGUNTAS = FRASES_POR_SETOR.flatMap((perguntas, setor) =>
@@ -12,11 +13,13 @@ const TODAS_PERGUNTAS = FRASES_POR_SETOR.flatMap((perguntas, setor) =>
  * as outras 69; quando todas já apareceram, a rodada reinicia sozinha.
  */
 export function useSorteioAleatorio() {
+  const sfx = useSfx();
   const [atual, setAtual] = useState(null);
   const [revelada, setRevelada] = useState(false);
   const usadosRef = useRef(new Set());
 
   function sortear() {
+    sfx("spin-stop");
     if (usadosRef.current.size >= TODAS_PERGUNTAS.length) {
       usadosRef.current = new Set();
     }
@@ -34,6 +37,7 @@ export function useSorteioAleatorio() {
 
   function revelar() {
     if (!atual) return;
+    sfx(atual.verdadeiro ? "correct" : "wrong");
     setRevelada(true);
   }
 

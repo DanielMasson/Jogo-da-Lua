@@ -1,0 +1,16 @@
+Coloque aqui os arquivos MP3 dos efeitos sonoros dos botões, com estes nomes
+EXATOS (letras minúsculas, com hífen onde indicado):
+
+  click.mp3       clique genérico (fechar modal, pergunta bônus, etc.)
+  select.mp3      selecionar uma das 10 perguntas do setor
+  reveal.mp3      revelar a resposta (botão "Resposta")
+  correct.mp3     resposta é Verdadeiro
+  wrong.mp3       resposta é Falso
+  spin.mp3        cada "passo" da roleta girando (curto, toca várias vezes)
+  spin-stop.mp3   roleta para de girar no setor sorteado
+  score.mp3       ajustar pontuação no placar (+ / -)
+  toggle.mp3      marcar V/F, marcar todos, abrir/fechar painéis
+
+Se algum desses arquivos não existir, o site gera automaticamente um beep
+sintetizado no lugar (feito na hora, sem precisar de MP3), então nada quebra
+enquanto você não tiver todos os arquivos prontos.

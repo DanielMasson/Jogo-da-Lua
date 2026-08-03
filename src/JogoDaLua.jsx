@@ -8,6 +8,7 @@ import QuizPanel from "./components/QuizPanel";
 import Scoreboard from "./components/Scoreboard";
 import MobileQuiz from "./components/MobileQuiz";
 import MoonIllustration from "./components/MoonIllustration";
+import AudioControls from "./components/AudioControls";
 
 /**
  * Este componente não guarda nenhuma regra do jogo — ele só busca o
@@ -19,6 +20,10 @@ import MoonIllustration from "./components/MoonIllustration";
  * sorteia uma pergunta direto do conjunto todo (ver MobileQuiz). O hook
  * do jogo completo continua sendo chamado sempre (regra dos hooks), só
  * não é usado quando isMobile é true.
+ *
+ * <AudioControls /> é o botão flutuante de volume/mudo da música de fundo
+ * (funciona em desktop e mobile). Precisa estar dentro de <AudioProvider>,
+ * que agora envolve o jogo lá no App.jsx.
  */
 export default function JogoDaLua() {
   const jogo = useJogoDaLua();
@@ -26,11 +31,11 @@ export default function JogoDaLua() {
 
   return (
     <div className="jdl-root">
+      <AudioControls />
       <Header />
 
       {isMobile ? (
         <div className="jdl-mobile-layout">
-          <MoonIllustration />
           <MobileQuiz />
           <BonusPanel />
         </div>

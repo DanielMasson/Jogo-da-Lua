@@ -1,5 +1,10 @@
 import JogoDaLua from "./JogoDaLua";
+import { AudioProvider } from "./context/AudioProvider";
 
 export default function App() {
-  return <JogoDaLua />;
+  return (
+    <AudioProvider>
+      <JogoDaLua />
+    </AudioProvider>
+  );
 }
