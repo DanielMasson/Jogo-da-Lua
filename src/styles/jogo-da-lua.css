@@ -573,6 +573,49 @@ body,
   font-size: 12.5px;
   color: var(--jdl-mist);
 }
+/* --- botões V/F grandes (mobile) --- */
+.jdl-mobile-vf {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.jdl-vf-btn-lg {
+  flex: 1;
+  font-family: var(--jdl-body);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 0;
+  border-radius: 10px;
+  border: 1px solid var(--jdl-line);
+  background: var(--jdl-panel-2);
+  color: var(--jdl-ink);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.jdl-vf-btn-lg:hover {
+  border-color: var(--jdl-gold-dim);
+}
+.jdl-vf-btn-lg:active {
+  transform: scale(0.97);
+}
+.jdl-vf-btn-lg.picked-v {
+  background: var(--jdl-mint);
+  color: var(--jdl-void);
+  border-color: var(--jdl-mint);
+}
+.jdl-vf-btn-lg.picked-f {
+  background: var(--jdl-coral);
+  color: var(--jdl-void);
+  border-color: var(--jdl-coral);
+}
+
+/* --- resultado (acertou/errou) no mobile --- */
+.jdl-resultado {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 0 10px;
+}
 
 /* --- controle de som (música de fundo) --- */
 .jdl-audio-controls {
