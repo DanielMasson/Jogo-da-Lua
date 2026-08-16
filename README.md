@@ -320,7 +320,7 @@ Esta etapa é diferente de "criar um projeto novo com Vite" (visto no roteiro ac
 
 2. **Clone o repositório:**
    ```bash
-   git clone <https://github.com/DanielMasson/Jogo-da-Lua>
+   git clone https://github.com/DanielMasson/Jogo-da-Lua.git
    ```
    Isso cria uma pasta local (ex.: `jogo-da-lua/`) com todo o código do projeto — já é a pasta do projeto React, não é necessário criar uma nova com `npm create vite`.
 
