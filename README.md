@@ -2,7 +2,7 @@
 
 Uma roleta interativa com 7 setores temáticos sobre a Lua, perguntas de Verdadeiro ou Falso, placar de grupos e um desafio bônus com diagramas ilustrados — desenvolvida em React para uso em sala de aula.
 
-**🔗 Acesse o jogo online:** [Jogo da Lua](jogo-da-lua.web.app)
+**🔗 Acesse o jogo online:** [Jogo da Lua](https://jogo-da-lua.web.app)
 
 ---
 
