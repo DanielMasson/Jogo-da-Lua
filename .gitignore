@@ -1,7 +1,14 @@
 node_modules
 dist
 dist-ssr
+build
+.firebase
 *.local
+
+# env
+.env
+.env.local
+.env.*.local
 
 # editor
 .vscode/*
@@ -16,6 +23,3 @@ pnpm-debug.log*
 
 # os
 .DS_Store
-
-#firebase cache
-.firebase
