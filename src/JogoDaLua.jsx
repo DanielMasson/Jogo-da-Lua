@@ -9,6 +9,7 @@ import Scoreboard from "./components/Scoreboard";
 import MobileQuiz from "./components/MobileQuiz";
 import MoonIllustration from "./components/MoonIllustration";
 import AudioControls from "./components/AudioControls";
+import Footer from "./components/Footer";
 
 /**
  * Este componente não guarda nenhuma regra do jogo — ele só busca o
@@ -71,6 +72,7 @@ export default function JogoDaLua() {
           />
         </>
       )}
+      <Footer />
     </div>
   );
 }

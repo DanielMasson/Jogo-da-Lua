@@ -16,3 +16,6 @@ pnpm-debug.log*
 
 # os
 .DS_Store
+
+#firebase cache
+.firebase
